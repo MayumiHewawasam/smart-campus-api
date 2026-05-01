@@ -26,4 +26,25 @@ public class SensorResource{
         }
         return Response.ok(sensorList).build();
     }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createSensor(Sensor sensor){
+        if (!DataStore.rooms.containsKey(sensor.getRoomId())){
+            return Response.status(422)
+                    .entity("Room not font for given roomId").build();
+        }
+        DataStore.sensors.put(sensor.getId(), sensor);
+        DataStore.readings.put(sensor.getId(),new ArrayList<>());
+        Room room = DataStore.rooms.get(sensor.getRoomId());
+        room.getSensorIds().add(sensor.getId());
+        return Response.status(201).entity(sensor).build();
+    }
+    
+    @Path("/{sensorId}/readings")
+    public SensorReadingResource getReadingResource(
+            @PathParam("sensorId") String sensorId) {
+        return new SensorReadingResource(sensorId);
+    }
 }
