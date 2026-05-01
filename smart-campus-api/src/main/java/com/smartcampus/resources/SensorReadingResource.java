@@ -43,5 +43,5 @@ public class SensorReadingResource {
         sensor.setCurrentValue(reading.getValue());
         return Response.status(201).entity(newReading).build();
     }
-    }
+    
 }
