@@ -8,15 +8,20 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/room")
+@Path("/rooms")
 public class RoomResource {
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllRooms(){
-        List<Room> roomList = new ArrayList<>(DataStore.rooms.values());
-        return Response.ok(roomList).build();
+    public Response getAllRooms() {
+        try {
+            List<Room> roomList = new ArrayList<>(DataStore.rooms.values());
+            return Response.ok(roomList).build();
+        } catch (Exception e) {
+            return Response.status(500).entity(e.getMessage()).build();
+        }
     }
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,4 +60,3 @@ public class RoomResource {
         return Response.ok("Room deleted successfully").build();
     }
 }
-

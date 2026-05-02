@@ -11,8 +11,8 @@
             org.glassfish.jersey.servlet.ServletContainer
         </servlet-class>
         <init-param>
-            <param-name>jakarta.ws.rs.Application</param-name>
-            <param-value>com.smartcampus.SmartCampusApplication</param-value>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>com.smartcampus</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

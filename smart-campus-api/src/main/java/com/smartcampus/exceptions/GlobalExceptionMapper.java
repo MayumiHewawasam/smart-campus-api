@@ -16,7 +16,8 @@ public class GlobalExceptionMapper
         Map<String, String> error = new HashMap<>();
         error.put("status", "500");
         error.put("error", "Internal Server Error");
-        error.put("message", "An unexpected error occurred");
+        error.put("message", e.getMessage());
+        error.put("cause", e.getClass().getName());
         return Response.status(500)
                 .type(MediaType.APPLICATION_JSON)
                 .entity(error).build();
